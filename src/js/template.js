@@ -57,7 +57,8 @@ class Template {
         this.showDanmakuToggle = this.container.querySelector('.dplayer-showdan-setting-input');
         this.unlimitDanmaku = this.container.querySelector('.dplayer-setting-danunlimit');
         this.unlimitDanmakuToggle = this.container.querySelector('.dplayer-danunlimit-setting-input');
-        this.speed = this.container.querySelector('.dplayer-setting-speed');
+        this.speed = this.container.querySelector('.dplayer-speed');
+        this.speedButton = this.container.querySelector('.dplayer-speed-icon');
         this.speedItem = this.container.querySelectorAll('.dplayer-setting-speed-item');
         this.danmakuOpacityBar = this.container.querySelector('.dplayer-danmaku-bar-inner');
         this.danmakuOpacityBarWrap = this.container.querySelector('.dplayer-danmaku-bar');
@@ -75,8 +76,6 @@ class Template {
         this.commentColorSettingBox = this.container.querySelector('.dplayer-comment-setting-color');
         this.browserFullButton = this.container.querySelector('.dplayer-full-icon');
         this.webFullButton = this.container.querySelector('.dplayer-full-in-icon');
-        this.menu = this.container.querySelector('.dplayer-menu');
-        this.menuItem = this.container.querySelectorAll('.dplayer-menu-item');
         this.qualityList = this.container.querySelector('.dplayer-quality-list');
         this.camareButton = this.container.querySelector('.dplayer-camera-icon');
         this.airplayButton = this.container.querySelector('.dplayer-airplay-icon');

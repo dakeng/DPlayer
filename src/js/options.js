@@ -1,4 +1,4 @@
-/* global DPLAYER_VERSION */
+// /* global DPLAYER_VERSION */
 import defaultApiBackend from './api.js';
 
 export default (options) => {
@@ -48,22 +48,7 @@ export default (options) => {
         options.lang = options.lang.toLowerCase();
     }
 
-    options.contextmenu = options.contextmenu.concat([
-        {
-            text: 'Video info',
-            click: (player) => {
-                player.infoPanel.triggle();
-            },
-        },
-        {
-            text: 'About author',
-            link: 'https://diygod.me',
-        },
-        {
-            text: `DPlayer v${DPLAYER_VERSION}`,
-            link: 'https://github.com/MoePlayer/DPlayer',
-        },
-    ]);
+    options.contextmenu = options.contextmenu.concat([]);
 
     return options;
 };
