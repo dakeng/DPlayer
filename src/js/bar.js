@@ -21,7 +21,7 @@ class Bar {
     }
 
     get(type) {
-        return parseFloat(this.elements[type].style.width) / 100;
+        return parseFloat(this.elements[type].style.height) / 100;
     }
 }
 

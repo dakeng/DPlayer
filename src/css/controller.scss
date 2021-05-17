@@ -353,53 +353,62 @@
             cursor: pointer;
             height: 100%;
             &:hover {
-
-                .dplayer-volume-bar-wrap .dplayer-volume-bar {
-                    width: 45px;
+                .dplayer-volume-bar-wrap {
+                    height: 120px;
+                    padding: 10px 6px;
                 }
                 .dplayer-volume-bar-wrap .dplayer-volume-bar .dplayer-volume-bar-inner .dplayer-thumb {
                     transform: scale(1);
                 }
             }
             &.dplayer-volume-active {
-                .dplayer-volume-bar-wrap .dplayer-volume-bar {
-                    width: 45px;
+                .dplayer-volume-bar-wrap {
+                    height: 120px;
+                    padding: 10px 6px;
                 }
                 .dplayer-volume-bar-wrap .dplayer-volume-bar .dplayer-volume-bar-inner .dplayer-thumb {
                     transform: scale(1);
                 }
             }
             .dplayer-volume-bar-wrap {
-                display: inline-block;
-                margin: 0 10px 0 -5px;
-                vertical-align: middle;
-                height: 100%;
+                width: 24px;
+                height: 0;
+                margin: 0 0 5px 0;
+                background: rgba(0, 0, 0, 0.4);
+                border-radius: 4px;
+                box-sizing: border-box;
+                padding: 0;
+                transform-origin: center bottom;
+                transition: all 0.3s ease-in-out;
 
                 position: absolute;
                 bottom: calc(100% + 5px);
-                left: 0;
+                left: calc(50% - 12px);
                 .dplayer-volume-bar {
-                    position: relative;
-                    top: 17px;
-                    width: 0;
-                    height: 3px;
-                    background: #aaa;
+                    position: absolute;
+                    width: 2px;
+                    height: calc(100% - 20px);
+                    border-radius: 7px;
+                    top: 10px;
+                    left: 11px;
+                    background: rgba(#fff, 0.5);
                     transition: all 0.3s ease-in-out;
+                    
                     .dplayer-volume-bar-inner {
                         position: absolute;
                         bottom: 0;
                         left: 0;
-                        height: 100%;
+                        width: 100%;
                         transition: all 0.1s ease;
-                        will-change: width;
+                        will-change: height;
                         .dplayer-thumb {
                             position: absolute;
                             top: 0;
                             right: 5px;
                             margin-top: -4px;
                             margin-right: -10px;
-                            height: 11px;
-                            width: 11px;
+                            height: 12px;
+                            width: 12px;
                             border-radius: 50%;
                             cursor: pointer;
                             transition: all .3s ease-in-out;

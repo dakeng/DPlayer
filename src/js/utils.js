@@ -71,6 +71,46 @@ const utils = {
         }
     },
 
+    getElementViewTop: (element) => {
+        let actualTop = element.offsetTop;
+        let current = element.offsetParent;
+        const elementScrollTop = document.body.scrollTop + document.documentElement.scrollTop;
+        if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
+            while (current !== null) {
+                actualTop += current.offsetTop;
+                current = current.offsetParent;
+            }
+        } else {
+            while (current !== null && current !== element) {
+                actualTop += current.offsetTop;
+                current = current.offsetParent;
+            }
+        }
+        return actualTop - elementScrollTop;
+    },
+
+    getBoundingClientRectViewTop(element) {
+        const scrollTop = window.scrollY || window.pageYOffset || document.body.scrollTop + ((document.documentElement && document.documentElement.scrollTop) || 0);
+
+        if (element.getBoundingClientRect) {
+            if (typeof this.getBoundingClientRectViewTop.offset !== 'number') {
+                let temp = document.createElement('div');
+                temp.style.cssText = 'position:absolute;top:0;left:0;';
+                document.body.appendChild(temp);
+                this.getBoundingClientRectViewTop.offset = -temp.getBoundingClientRect().top - scrollTop;
+                document.body.removeChild(temp);
+                temp = null;
+            }
+            const rect = element.getBoundingClientRect();
+            const offset = this.getBoundingClientRectViewTop.offset;
+
+            return rect.top + offset;
+        } else {
+            // not support getBoundingClientRect
+            return this.getElementViewTop(element);
+        }
+    },
+
     getScrollPosition() {
         return {
             left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
