@@ -15,7 +15,7 @@ import Timer from './timer';
 import Bezel from './bezel';
 import Controller from './controller';
 import Setting from './setting';
-import Comment from './comment';
+// import Comment from './comment';
 import HotKey from './hotkey';
 import InfoPanel from './info-panel';
 import tplVideo from '../template/video.art';
@@ -110,7 +110,7 @@ class DPlayer {
                 tran: (msg) => this.tran(msg),
             });
 
-            this.comment = new Comment(this);
+            // this.comment = new Comment(this);
         }
 
         this.setting = new Setting(this);
@@ -169,7 +169,7 @@ class DPlayer {
             this.danmaku.seek();
         }
 
-        this.bar.set('played', time / this.video.duration, 'height');
+        this.bar.set('played', time / this.video.duration, 'width');
         this.template.ptime.innerHTML = utils.secondToTime(time);
     }
 
@@ -301,8 +301,8 @@ class DPlayer {
         this.initMSE(this.video, video.type || 'auto');
         if (danmakuAPI) {
             this.template.danmakuLoading.style.display = 'block';
-            this.bar.set('played', 0, 'height');
-            this.bar.set('loaded', 0, 'height');
+            this.bar.set('played', 0, 'width');
+            this.bar.set('loaded', 0, 'width');
             this.template.ptime.innerHTML = '00:00';
             this.template.danmaku.innerHTML = '';
             if (this.danmaku) {
@@ -461,7 +461,7 @@ class DPlayer {
         // show video loaded bar: to inform interested parties of progress downloading the media
         this.on('progress', () => {
             const percentage = video.buffered.length ? video.buffered.end(video.buffered.length - 1) / video.duration : 0;
-            this.bar.set('loaded', percentage, 'height');
+            this.bar.set('loaded', percentage, 'width');
         });
 
         // video download error: an error occurs
@@ -475,7 +475,7 @@ class DPlayer {
 
         // video end
         this.on('ended', () => {
-            this.bar.set('played', 1, 'height');
+            this.bar.set('played', 1, 'width');
             if (!this.setting.loop) {
                 this.pause();
             } else {
@@ -500,7 +500,7 @@ class DPlayer {
         });
 
         this.on('timeupdate', () => {
-            this.bar.set('played', this.video.currentTime / this.video.duration, 'height');
+            this.bar.set('played', this.video.currentTime / this.video.duration, 'width');
             const currentTime = utils.secondToTime(this.video.currentTime);
             if (this.template.ptime.innerHTML !== currentTime) {
                 this.template.ptime.innerHTML = currentTime;

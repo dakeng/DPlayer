@@ -13,24 +13,23 @@
     left: 0;
     right: 0;
     height: 41px;
-    padding: 0 20px;
+    padding: 0 15px;
     user-select: none;
     transition: all 0.3s ease;
-    &.dplayer-controller-comment {
-        .dplayer-icons {
-            display: none;
-        }
-        .dplayer-icons.dplayer-comment-box {
-            display: block;
-        }
-    }
+
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    margin: 40px;
+
     .dplayer-bar-wrap {
         padding: 5px 0;
         cursor: pointer;
-        position: absolute;
-        bottom: 33px;
-        width: calc(100% - 40px);
-        height: 3px;
+        flex: 1;
+        margin: 0 15px;
+        height: 24px;
+        position: relative;
         &:hover {
             .dplayer-bar .dplayer-played .dplayer-thumb {
                 transform: scale(1);
@@ -58,9 +57,6 @@
                 .dplayer-highlight-text {
                     display: block;
                 }
-                &~.dplayer-bar-preview {
-                    opacity: 0;
-                }
                 &~.dplayer-bar-time {
                     opacity: 0;
                 }
@@ -78,20 +74,6 @@
                 white-space: nowrap;
                 transform: translateX(-50%);
             }
-        }
-        .dplayer-bar-preview {
-            position: absolute;
-            background: #fff;
-            pointer-events: none;
-            display: none;
-            background-size: 16000px 100%;
-        }
-        .dplayer-bar-preview-canvas {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
         }
         .dplayer-bar-time {
             &.hidden {
@@ -115,9 +97,10 @@
         }
         .dplayer-bar {
             position: relative;
-            height: 3px;
+            height: 24px;
             width: 100%;
-            background: rgba(255, 255, 255, .2);
+            background: rgba(117, 117, 117, 0.4);
+            border-radius: 5px;
             cursor: pointer;
             .dplayer-loaded {
                 position: absolute;
@@ -125,7 +108,8 @@
                 top: 0;
                 bottom: 0;
                 background: rgba(255, 255, 255, .4);
-                height: 3px;
+                border-radius: 5px;
+                height: 24px;
                 transition: all 0.5s ease;
                 will-change: width;
             }
@@ -134,11 +118,12 @@
                 left: 0;
                 top: 0;
                 bottom: 0;
-                height: 3px;
+                height: 24px;
+                border-radius: 5px;
                 will-change: width;
                 .dplayer-thumb {
                     position: absolute;
-                    top: 0;
+                    top: -2px;
                     right: 5px;
                     margin-top: -4px;
                     margin-right: -10px;
@@ -153,9 +138,8 @@
         }
     }
     .dplayer-icons {
-        height: 38px;
-        position: absolute;
-        bottom: 0;
+        height: 29px;
+
         &.dplayer-comment-box {
             display: none;
             position: absolute;
@@ -285,22 +269,21 @@
         }
         &.dplayer-icons-left {
             .dplayer-icon {
-                padding: 7px;
+                padding: 5px;
             }
         }
         &.dplayer-icons-right {
-            right: 20px;
             .dplayer-icon {
-                padding: 8px;
+                padding: 5px;
             }
         }
         .dplayer-time,
         .dplayer-live-badge {
-            line-height: 38px;
+            line-height: 29px;
             color: #eee;
             text-shadow: 0 0 2px rgba(0, 0, 0, .5);
             vertical-align: middle;
-            font-size: 13px;
+            font-size: 12px;
             cursor: default;
         }
         .dplayer-live-dot {
@@ -313,7 +296,7 @@
             border-radius: 6px;
         }
         .dplayer-icon {
-            width: 40px;
+            width: 29px;
             height: 100%;
             border: none;
             background-color: transparent;
@@ -344,7 +327,7 @@
                 padding-top: 8.5px;
             }
             &.dplayer-volume-icon {
-                width: 43px;
+                width: 29px;
             }
         }
         .dplayer-volume {
@@ -403,7 +386,7 @@
                         will-change: height;
                         .dplayer-thumb {
                             position: absolute;
-                            top: 0;
+                            top: -2px;
                             right: 5px;
                             margin-top: -4px;
                             margin-right: -10px;
@@ -516,7 +499,7 @@
                             will-change: width;
                             .dplayer-thumb {
                                 position: absolute;
-                                top: 0;
+                                top: -2px;
                                 right: 5px;
                                 margin-top: -4px;
                                 margin-right: -10px;
@@ -552,6 +535,9 @@
                 background: rgba(0, 0, 0, 0.4);
                 border-radius: 4px;
                 padding: 10px 6px;
+                left: 50%;
+                transform: translateX(-50%);
+
                 .panel-label {
                     text-align: center;
                     font-size: 12px;

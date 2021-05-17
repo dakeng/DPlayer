@@ -1,5 +1,4 @@
 import utils from './utils';
-import Thumbnails from './thumbnails';
 import Icons from './icons';
 
 class Controller {
@@ -23,7 +22,6 @@ class Controller {
         }
 
         this.initPlayButton();
-        this.initThumbnails();
         this.initPlayedBar();
         this.initFullButton();
         this.initQualityButton();
@@ -85,21 +83,6 @@ class Controller {
         });
     }
 
-    initThumbnails() {
-        if (this.player.options.video.thumbnails) {
-            this.thumbnails = new Thumbnails({
-                container: this.player.template.barPreview,
-                barWidth: this.player.template.barWrap.offsetWidth,
-                url: this.player.options.video.thumbnails,
-                events: this.player.events,
-            });
-
-            this.player.on('loadedmetadata', () => {
-                this.thumbnails.resize(160, (this.player.video.videoHeight / this.player.video.videoWidth) * 160, this.player.template.barWrap.offsetWidth);
-            });
-        }
-    }
-
     initPlayedBar() {
         const thumbMove = (e) => {
             let percentage = ((e.clientX || e.changedTouches[0].clientX) - utils.getBoundingClientRectViewLeft(this.player.template.playedBarWrap)) / this.player.template.playedBarWrap.clientWidth;
@@ -116,7 +99,7 @@ class Controller {
             percentage = Math.max(percentage, 0);
             percentage = Math.min(percentage, 1);
             this.player.bar.set('played', percentage, 'width');
-            this.player.seek(this.player.bar.get('played') * this.player.video.duration);
+            this.player.seek(this.player.bar.get('played', 'width') * this.player.video.duration);
             this.player.timer.enable('progress');
         };
 
@@ -205,11 +188,11 @@ class Controller {
             if (this.player.video.muted) {
                 this.player.video.muted = false;
                 this.player.switchVolumeIcon();
-                this.player.bar.set('volume', this.player.volume(), 'width');
+                this.player.bar.set('volume', this.player.volume(), 'height');
             } else {
                 this.player.video.muted = true;
                 this.player.template.volumeIcon.innerHTML = Icons.volumeOff;
-                this.player.bar.set('volume', 0, 'width');
+                this.player.bar.set('volume', 0, 'height');
             }
         });
     }
