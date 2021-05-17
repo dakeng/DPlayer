@@ -116,8 +116,6 @@ function initPlayers() {
         'volumechange', 'waiting',
         'screenshot',
         'thumbnails_show', 'thumbnails_hide',
-        'danmaku_show', 'danmaku_hide', 'danmaku_clear',
-        'danmaku_loaded', 'danmaku_send', 'danmaku_opacity',
         'contextmenu_show', 'contextmenu_hide',
         'notice_show', 'notice_hide',
         'quality_start', 'quality_end',

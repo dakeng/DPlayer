@@ -24,10 +24,6 @@ class Controller {
         this.initPlayButton();
         this.initPlayedBar();
         this.initFullButton();
-        this.initQualityButton();
-        this.initScreenshotButton();
-        this.initSubtitleButton();
-        this.initHighlights();
         this.initAirplayButton();
         if (!utils.isMobile) {
             this.initVolumeButton();
@@ -58,29 +54,6 @@ class Controller {
                 this.toggle();
             });
         }
-    }
-
-    initHighlights() {
-        this.player.on('durationchange', () => {
-            if (this.player.video.duration !== 1 && this.player.video.duration !== Infinity) {
-                if (this.player.options.highlight) {
-                    const highlights = document.querySelectorAll('.dplayer-highlight');
-                    [].slice.call(highlights, 0).forEach((item) => {
-                        this.player.template.playedBarWrap.removeChild(item);
-                    });
-                    for (let i = 0; i < this.player.options.highlight.length; i++) {
-                        if (!this.player.options.highlight[i].text || !this.player.options.highlight[i].time) {
-                            continue;
-                        }
-                        const p = document.createElement('div');
-                        p.classList.add('dplayer-highlight');
-                        p.style.left = (this.player.options.highlight[i].time / this.player.video.duration) * 100 + '%';
-                        p.innerHTML = '<span class="dplayer-highlight-text">' + this.player.options.highlight[i].text + '</span>';
-                        this.player.template.playedBarWrap.insertBefore(p, this.player.template.playedBarTime);
-                    }
-                }
-            }
-        });
     }
 
     initPlayedBar() {
@@ -197,42 +170,6 @@ class Controller {
         });
     }
 
-    initQualityButton() {
-        if (this.player.options.video.quality) {
-            this.player.template.qualityList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('dplayer-quality-item')) {
-                    this.player.switchQuality(e.target.dataset.index);
-                }
-            });
-        }
-    }
-
-    initScreenshotButton() {
-        if (this.player.options.screenshot) {
-            this.player.template.camareButton.addEventListener('click', () => {
-                const canvas = document.createElement('canvas');
-                canvas.width = this.player.video.videoWidth;
-                canvas.height = this.player.video.videoHeight;
-                canvas.getContext('2d').drawImage(this.player.video, 0, 0, canvas.width, canvas.height);
-
-                let dataURL;
-                canvas.toBlob((blob) => {
-                    dataURL = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = dataURL;
-                    link.download = 'DPlayer.png';
-                    link.style.display = 'none';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(dataURL);
-                });
-
-                this.player.events.trigger('screenshot', dataURL);
-            });
-        }
-    }
-
     initAirplayButton() {
         if (this.player.options.airplay) {
             if (window.WebKitPlaybackTargetAvailabilityEvent) {
@@ -262,25 +199,6 @@ class Controller {
         }
     }
 
-    initSubtitleButton() {
-        if (this.player.options.subtitle) {
-            this.player.events.on('subtitle_show', () => {
-                this.player.template.subtitleButton.dataset.balloon = this.player.tran('Hide subtitle');
-                this.player.template.subtitleButtonInner.style.opacity = '';
-                this.player.user.set('subtitle', 1);
-            });
-            this.player.events.on('subtitle_hide', () => {
-                this.player.template.subtitleButton.dataset.balloon = this.player.tran('Show subtitle');
-                this.player.template.subtitleButtonInner.style.opacity = '0.4';
-                this.player.user.set('subtitle', 0);
-            });
-
-            this.player.template.subtitleButton.addEventListener('click', () => {
-                this.player.subtitle.toggle();
-            });
-        }
-    }
-
     setAutoHide() {
         this.show();
         clearTimeout(this.autoHideTimer);
@@ -297,8 +215,6 @@ class Controller {
 
     hide() {
         this.player.container.classList.add('dplayer-hide-controller');
-        this.player.setting.hide();
-        this.player.comment && this.player.comment.hide();
     }
 
     isShow() {
