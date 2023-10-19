@@ -1,4 +1,4 @@
-const isMobile = /mobile/i.test(window.navigator.userAgent);
+const isMobile = /mobile|android|iphone|ipod|phone|ipad/i.test(window.navigator.userAgent);
 
 const utils = {
     /**
@@ -132,6 +132,8 @@ const utils = {
     isFirefox: /firefox/i.test(window.navigator.userAgent),
 
     isChrome: /chrome/i.test(window.navigator.userAgent),
+
+    isSafari: /safari/i.test(window.navigator.userAgent),
 
     storage: {
         set: (key, value) => {

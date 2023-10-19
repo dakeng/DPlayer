@@ -1,30 +1,28 @@
 import utils from './utils';
 import Icons from './icons';
 
+let cast;
+let runOnce = true;
+let isCasting = false;
+
 class Controller {
     constructor(player) {
         this.player = player;
 
         this.autoHideTimer = 0;
         if (!utils.isMobile) {
-            this.player.container.addEventListener('mousemove', () => {
-                this.setAutoHide();
-            });
-            this.player.container.addEventListener('click', () => {
-                this.setAutoHide();
-            });
-            this.player.on('play', () => {
-                this.setAutoHide();
-            });
-            this.player.on('pause', () => {
-                this.setAutoHide();
-            });
+            this.setAutoHideHandler = this.setAutoHide.bind(this);
+            this.player.container.addEventListener('mousemove', this.setAutoHideHandler);
+            this.player.container.addEventListener('click', this.setAutoHideHandler);
+            this.player.on('play', this.setAutoHideHandler);
+            this.player.on('pause', this.setAutoHideHandler);
         }
 
         this.initPlayButton();
         this.initPlayedBar();
         this.initFullButton();
         this.initAirplayButton();
+        this.initChromecastButton();
         if (!utils.isMobile) {
             this.initVolumeButton();
         }
@@ -40,12 +38,14 @@ class Controller {
         });
 
         if (!utils.isMobile) {
-            this.player.template.videoWrap.addEventListener('click', () => {
-                this.player.toggle();
-            });
-            this.player.template.controllerMask.addEventListener('click', () => {
-                this.player.toggle();
-            });
+            if (!this.player.options.preventClickToggle) {
+                this.player.template.videoWrap.addEventListener('click', () => {
+                    this.player.toggle();
+                });
+                this.player.template.controllerMask.addEventListener('click', () => {
+                    this.player.toggle();
+                });
+            }
         } else {
             this.player.template.videoWrap.addEventListener('click', () => {
                 this.toggle();
@@ -77,7 +77,7 @@ class Controller {
         };
 
         this.player.template.playedBarWrap.addEventListener(utils.nameMap.dragStart, () => {
-            this.player.timer.disable('progress');
+            this.player.moveBar = true;
             document.addEventListener(utils.nameMap.dragMove, thumbMove);
             document.addEventListener(utils.nameMap.dragEnd, thumbUp);
         });
@@ -230,6 +230,10 @@ class Controller {
     }
 
     destroy() {
+        if (!utils.isMobile) {
+            this.player.container.removeEventListener('mousemove', this.setAutoHideHandler);
+            this.player.container.removeEventListener('click', this.setAutoHideHandler);
+        }
         clearTimeout(this.autoHideTimer);
     }
 }

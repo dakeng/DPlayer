@@ -75,10 +75,12 @@ function initPlayers() {
         loop: true,
         screenshot: true,
         airplay: true,
+        chromecast: true,
         hotkey: true,
         logo: 'https://i.loli.net/2019/06/06/5cf8c5d94521136430.png',
         volume: 0.2,
         mutex: true,
+        lang: 'zh-cn',
         video: {
             url: 'https://api.dogecloud.com/player/get.mp4?vcode=5ac682e6f8231991&userId=17&ext=.mp4',
             pic: 'https://i.loli.net/2019/06/06/5cf8c5d9c57b510947.png',
@@ -95,11 +97,13 @@ function initPlayers() {
         danmaku: {
             id: '9E2E3368B56CDBB4',
             api: 'https://api.prprpr.me/dplayer/',
+            addition: ['https://s-sh-17-dplayercdn.oss.dogecdn.com/1678963.json'],
             token: 'tokendemo',
             maximum: 3000,
             user: 'DIYgod',
             bottom: '15%',
-            unlimited: true
+            unlimited: true,
+            speedRate: 0.5,
         },
         contextmenu: [
             {
@@ -127,7 +131,7 @@ function initPlayers() {
     const eventsEle = document.getElementById('events');
     for (let i = 0; i < events.length; i++) {
         dp2.on(events[i], (info) => {
-            eventsEle.innerHTML += '<p>Event: ' + events[i] + '</p>';
+            eventsEle.innerHTML += `<p>Event: ${events[i]} ${info?`Data: <span>${JSON.stringify(info)}</span>`:''}</p>`;
             eventsEle.scrollTop = eventsEle.scrollHeight;
         });
     }
@@ -234,7 +238,7 @@ function clearPlayers() {
 }
 
 function switchDPlayer() {
-    if (dp2.option.danmaku.id !== '5rGf5Y2X55qu6Z2p') {
+    if (dp2.options.danmaku.id !== '5rGf5Y2X55qu6Z2p') {
         dp2.switchVideo({
             url: 'http://static.smartisanos.cn/common/video/t1-ui.mp4',
             pic: 'http://static.smartisanos.cn/pr/img/video/video_03_cc87ce5bdb.jpg',

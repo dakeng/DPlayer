@@ -56,10 +56,10 @@
             </div>
         </div>
         <div class="dplayer-full">
-            <button class="dplayer-icon dplayer-full-in-icon" data-balloon="{{ tran('Web full screen') }}" data-balloon-pos="up">
+            <button class="dplayer-icon dplayer-full-in-icon" data-balloon="{{ tran('web-fullscreen') }}" data-balloon-pos="up">
                 <span class="dplayer-icon-content">{{@ icons.fullWeb }}</span>
             </button>
-            <button class="dplayer-icon dplayer-full-icon" data-balloon="{{ tran('Full screen') }}" data-balloon-pos="up">
+            <button class="dplayer-icon dplayer-full-icon" data-balloon="{{ tran('fullscreen') }}" data-balloon-pos="up">
                 <span class="dplayer-icon-content">{{@ icons.full }}</span>
             </button>
         </div>
@@ -92,7 +92,7 @@
         <span class="dplayer-info-panel-item-data"></span>
     </div>
 </div>
-<div class="dplayer-notice"></div>
+<div class="dplayer-notice-list"></div>
 <button class="dplayer-mobile-play">
     {{@ icons.play }}
 </button>
