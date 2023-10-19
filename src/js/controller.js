@@ -22,7 +22,6 @@ class Controller {
         this.initPlayedBar();
         this.initFullButton();
         this.initAirplayButton();
-        this.initChromecastButton();
         if (!utils.isMobile) {
             this.initVolumeButton();
         }
